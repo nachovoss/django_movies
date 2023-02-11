@@ -9,13 +9,11 @@ class Channel(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     picture_url = models.CharField(max_length=255)
-    is_subchanel = models.BooleanField(default=False)
+    is_parent = models.BooleanField(default=False)
     parent_channel = models.ForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True
     )
     date_created = models.DateTimeField(auto_now_add=True)
-    # date_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
-    # date_deleted = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -36,6 +34,7 @@ class Lenguage(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
+    alias = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -54,7 +53,7 @@ class Metadata(models.Model):
     genere = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.metadata
+        return str(self.id)
 
 
 class Content(models.Model):
