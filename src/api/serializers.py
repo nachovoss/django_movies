@@ -52,3 +52,10 @@ class ContentSerializer(serializers.ModelSerializer):
         if isinstance(channel_validation, Response):
             return channel_validation
         return data
+
+    def validate_rating(self, rating: int):
+        """Check if rating is between 0 and 10"""
+        rating_validation = content_sevrice.rating_validation(rating)
+        if isinstance(rating_validation, Response):
+            return rating_validation
+        return rating

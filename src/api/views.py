@@ -17,13 +17,15 @@ class ChannelCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
 
-    def put(self, request, *args, **kwargs):
-
-        serializer = ChannelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+    # def put(self, request, pk, format=None):
+    #     channel = self.get_object()
+    #     serializer = ChannelSerializer(
+    #         instance=channel, data=request.data, partial=False
+    #     )
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors)
 
 
 class ChannelAll(generics.ListCreateAPIView):
@@ -96,23 +98,9 @@ class ContentCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
 
-    def put(self, request, format=None):
-        serializer = ContentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
 
 class ContentAll(generics.ListCreateAPIView):
     serializer_class = ContentSerializer
-
-    def post(self, request, format=None):
-        serializer = ContentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
 
     def get_queryset(self):
         queryset = Content.objects.all()

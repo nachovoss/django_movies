@@ -15,5 +15,12 @@ class ContentService:
             )
         return channel
 
+    def rating_validation(self, rating: int):
+        if rating < 0 or rating > 10:
+            raise serializers.ValidationError(
+                "Rating must be between 0 and 10"
+            )
+        return rating
+
 
 content_sevrice = ContentService()

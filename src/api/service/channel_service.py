@@ -65,9 +65,7 @@ class ChannelService:
             return {"error": "There are no channels"}
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = "attachment; filename=ratings.csv"
-        import ipdb
 
-        ipdb.set_trace()
         writer = csv.writer(response)
         writer.writerow(["Channel", "Rating"])
         for channel in channels:

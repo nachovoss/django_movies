@@ -51,6 +51,9 @@ class Metadata(models.Model):
     authors = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     genere = models.CharField(max_length=255, null=True, blank=True)
+    content_id = models.ForeignKey(
+        "Content", on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
         return str(self.id)
@@ -67,9 +70,6 @@ class Content(models.Model):
     rating = models.IntegerField(default=0)
     parent_channel = models.ForeignKey(
         Channel, null=True, blank=True, on_delete=models.SET_NULL
-    )
-    metadata_id = models.ForeignKey(
-        Metadata, null=True, blank=True, on_delete=models.SET_NULL
     )
     # date_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
     # date_deleted = models.DateTimeField(auto_now=True, null=True, blank=True)
