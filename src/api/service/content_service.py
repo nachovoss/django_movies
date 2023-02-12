@@ -7,7 +7,7 @@ class ContentService:
         pass
 
     def content_channel_validation(self, channel_id: int):
-        """Check if channel exists"""
+        """Check if channel is parent"""
         channel = Channel.objects.filter(id=channel_id).first()
         if channel.is_parent:
             raise serializers.ValidationError(
