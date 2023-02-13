@@ -14,7 +14,7 @@ class ChannelService:
 
     def parent_channel_validation(
         self, is_parent: bool, parent_channel: Channel
-    ):
+    ) -> Channel:
         """Check if parent channel is parent and if channel is parent"""
 
         if is_parent and parent_channel is not None:
@@ -28,7 +28,7 @@ class ChannelService:
                 )
         return parent_channel
 
-    def get_rating(self, channel_id: int):
+    def get_rating(self, channel_id: int) -> dict:
         """Get rating of channel"""
 
         channel = Channel.objects.filter(id=channel_id).first()
@@ -70,7 +70,7 @@ class ChannelService:
 
         return {"channel": channel.title, "rating": ratings}
 
-    def export_rattings_csv(self):
+    def export_rattings_csv(self) -> HttpResponse:
         """Export ratings from all channels to csv"""
 
         channels = Channel.objects.all()

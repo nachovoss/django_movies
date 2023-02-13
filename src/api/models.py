@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
@@ -6,73 +7,75 @@ from django.db import models
 class Channel(models.Model):
     """Channel model."""
 
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=255)
-    picture_url = models.CharField(max_length=255)
-    is_parent = models.BooleanField(default=False)
-    parent_channel = models.ForeignKey(
-        "self", on_delete=models.CASCADE, null=True, blank=True
+    id: int = models.AutoField(primary_key=True)
+    title: str = models.CharField(max_length=255)
+    picture_url: str = models.URLField(max_length=255)
+    is_parent: bool = models.BooleanField(default=False)
+    parent_channel: int = models.ForeignKey(
+        "self", on_delete=models.SET_NULL, null=True, blank=True
     )
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created: datetime = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
 class ContentType(models.Model):
     """Content type model."""
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=255)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 class Lenguage(models.Model):
     """Lenguage model."""
 
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    alias = models.CharField(max_length=255, null=True, blank=True)
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=255)
+    alias: str = models.CharField(max_length=255, null=True, blank=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 class Metadata(models.Model):
     """Metadata model."""
 
-    id = models.AutoField(primary_key=True)
-    extra_data = models.TextField(
+    id: int = models.AutoField(primary_key=True)
+    extra_data: str = models.TextField(
         null=True, blank=True
     )  # JSON field if needed in the future
-    lenguage_id = models.ForeignKey(Lenguage, on_delete=models.CASCADE)
-    authors = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    genere = models.CharField(max_length=255, null=True, blank=True)
-    content_id = models.ForeignKey(
+    lenguage_id: int = models.ForeignKey(Lenguage, on_delete=models.CASCADE)
+    authors: str = models.CharField(max_length=255, null=True, blank=True)
+    description: str = models.TextField(null=True, blank=True)
+    genere: str = models.CharField(max_length=255, null=True, blank=True)
+    content_id: int = models.ForeignKey(
         "Content", on_delete=models.CASCADE, null=True
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.id)
 
 
 class Content(models.Model):
     """Content model."""
 
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=255)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    file_url = models.CharField(max_length=255)
-    date_created = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
-    parent_channel = models.ForeignKey(
+    id: int = models.AutoField(primary_key=True)
+    title: str = models.CharField(max_length=255)
+    content_type: int = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE
+    )
+    file_url: str = models.URLField(max_length=255)
+    date_created: datetime = models.DateTimeField(auto_now_add=True)
+    rating: int = models.IntegerField(default=0)
+    parent_channel: int = models.ForeignKey(
         Channel, null=True, blank=True, on_delete=models.SET_NULL
     )
     # date_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
     # date_deleted = models.DateTimeField(auto_now=True, null=True, blank=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
