@@ -1,4 +1,5 @@
-from django.shortcuts import render
+""" Views for the Immfly API. """
+from django.db.models import QuerySet
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -17,30 +18,16 @@ class ChannelCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
 
-    def put(self, request, *args, **kwargs):
-
-        serializer = ChannelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
 
 class ChannelAll(generics.ListCreateAPIView):
     serializer_class = ChannelSerializer
 
-    def post(self, request, format=None):
-        serializer = ChannelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         queryset = Channel.objects.all()
         title = self.request.query_params.get("title", None)
         if title is not None:
             queryset = queryset.filter(title__icontains=title)
+
         return queryset
 
 
@@ -52,7 +39,7 @@ class ContentTypeCrud(generics.RetrieveUpdateDestroyAPIView):
 class ContentTypeAll(generics.ListCreateAPIView):
     serializer_class = ContentTypeSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         queryset = ContentType.objects.all()
         name = self.request.query_params.get("name", None)
         if name is not None:
@@ -68,7 +55,7 @@ class LenguageCrud(generics.RetrieveUpdateDestroyAPIView):
 class LenguageAll(generics.ListCreateAPIView):
     serializer_class = LenguageSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         queryset = Lenguage.objects.all()
         name = self.request.query_params.get("name", None)
         if name is not None:
@@ -84,7 +71,7 @@ class MetadataCrud(generics.RetrieveUpdateDestroyAPIView):
 class MetadataAll(generics.ListCreateAPIView):
     serializer_class = MetadataSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         queryset = Metadata.objects.all()
         id_filter = self.request.query_params.get("id", None)
         if id_filter is not None:
@@ -96,25 +83,11 @@ class ContentCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
 
-    def put(self, request, format=None):
-        serializer = ContentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
 
 class ContentAll(generics.ListCreateAPIView):
     serializer_class = ContentSerializer
 
-    def post(self, request, format=None):
-        serializer = ContentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         queryset = Content.objects.all()
         id_filter = self.request.query_params.get("id", None)
         if id_filter is not None:
