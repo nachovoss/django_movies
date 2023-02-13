@@ -4,5 +4,5 @@ from django.test import TestCase
 
 
 class TestChannel(TestCase):
-
-    def setUp(self)
+    def setUp(self):
+        ...

@@ -55,7 +55,10 @@ class ChannelService:
 
                 ratings.append(mean([content.rating for content in contents]))
 
-            return {"channel": channel.title, "rating": mean(ratings)}
+            return {
+                "channel": channel.title,
+                "rating": round(mean(ratings), 1),
+            }
 
         contents = Content.objects.filter(parent_channel=channel.id)
 
