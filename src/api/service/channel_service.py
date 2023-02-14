@@ -116,7 +116,7 @@ class ChannelService:
         subchannels = Channel.objects.filter(
             parent_channel=channel.parent_channel
         ).exclude(id=channel.id)
-        if subchannels.count() == 0:
+        if subchannels.count() == 0 and channel.parent_channel:
             channel.parent_channel.delete()
 
 

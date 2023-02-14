@@ -28,13 +28,14 @@ class ContentService:
         contents = Content.objects.filter(
             parent_channel=content_channel.id
         ).exclude(id=content.id)
+        if content_channel.is_parent:
 
-        parent_channel = content_channel.parent_channel
-        other_subchannels = Channel.objects.filter(
-            parent_channel=parent_channel.id
-        ).exclude(id=content_channel.id)
-        if other_subchannels.count() == 0:
-            parent_channel.delete()
+            parent_channel = content_channel.parent_channel
+            other_subchannels = Channel.objects.filter(
+                parent_channel=parent_channel.id
+            ).exclude(id=content_channel.id)
+            if other_subchannels.count() == 0:
+                parent_channel.delete()
 
         if contents.count() == 0 and content_channel.is_parent is False:
             content_channel.delete()

@@ -11,6 +11,8 @@ from api.views import (
     MetadataCrud,
     ContentAll,
     ContentCrud,
+    GroupAll,
+    GroupCrud,
 )
 
 
@@ -54,3 +56,11 @@ class TestUrls(SimpleTestCase):
     def test_content_crud_url_is_resolved(self):
         url = reverse("content_crud", args=[1])
         self.assertEquals(resolve(url).func.view_class, ContentCrud)
+
+    def test_group_url_is_resolved(self):
+        url = reverse("group")
+        self.assertEquals(resolve(url).func.view_class, GroupAll)
+
+    def test_group_crud_url_is_resolved(self):
+        url = reverse("group_crud", args=[1])
+        self.assertEquals(resolve(url).func.view_class, GroupCrud)

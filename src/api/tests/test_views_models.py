@@ -1,6 +1,14 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from api.models import Channel, ContentType, Lenguage, Metadata, Content
+from api.models import (
+    Channel,
+    ContentType,
+    Lenguage,
+    Metadata,
+    Group,
+    Content,
+    Group,
+)
 
 
 class TestChannelViews(TestCase):
@@ -10,12 +18,14 @@ class TestChannelViews(TestCase):
         self.client = Client()
         self.channel_url = reverse("channel")
         self.channel_crud_url = reverse("channel_crud", args=[1])
-        channel = Channel.objects.create(
+        group = Group.objects.create(name="Test Group")
+        self.channel = Channel.objects.create(
             title="Test Channel",
-            is_parent=False,
+            is_parent=True,
             picture_url="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
         )
-        channel.save()
+        self.channel.groups.set([group])
+        self.channel.save()
 
     def test_channel_all(self):
 
@@ -29,6 +39,8 @@ class TestChannelViews(TestCase):
                 "title": "Test Channel",
                 "is_parent": False,
                 "picture_url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+                "groups": "1",
+                "parent_channel": self.channel.id,
             },
             format="json",
         )
@@ -256,6 +268,7 @@ class TestContentViews(TestCase):
             is_parent=False,
             picture_url="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
         )
+        channel.groups.add(Group.objects.create(name="Admin"))
         channel.save()
         content_type = ContentType.objects.create(name="Test Content Type")
         content_type.save()
@@ -271,6 +284,7 @@ class TestContentViews(TestCase):
     def test_content_all(self):
 
         response = self.client.get(self.content_url)
+
         self.assertEquals(response.status_code, 200)
 
     def test_content_add(self):
@@ -311,3 +325,45 @@ class TestContentViews(TestCase):
         response = self.client.delete(self.content_crud_url, format="json")
 
         self.assertEquals(response.status_code, 204)
+
+
+class TestGroupViews(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.group_url = reverse("group")
+        self.group_crud_url = reverse("group_crud", args=[1])
+        self.group = Group.objects.create(name="Test Group")
+        self.group.save()
+        self.channel = Channel.objects.create(
+            title="Test Channel",
+            is_parent=False,
+            picture_url="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+        )
+
+    def test_group_all(self):
+
+        response = self.client.get(self.group_url)
+
+        self.assertEquals(response.status_code, 200)
+
+    def test_group_add(self):
+        response = self.client.post(
+            self.group_url,
+            {"name": "Test Group 2", "channels": self.channel.id},
+            format="json",
+        )
+
+        self.assertEquals(response.status_code, 201)
+
+    def test_group_crud(self):
+        response = self.client.get(reverse("group_crud", args=[1]))
+
+        self.assertEquals(response.status_code, 200)
+
+    def test_group_update(self):
+        response = self.client.put(
+            self.group_crud_url,
+            {"name": "Test Group Updated", "channels": [self.channel.id]},
+            content_type="application/json",
+        )
+        self.assertEquals(response.status_code, 200)
