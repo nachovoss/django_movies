@@ -7,7 +7,6 @@ from api.models import (
     Metadata,
     Group,
     Content,
-    Group,
 )
 
 

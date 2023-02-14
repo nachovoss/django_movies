@@ -39,7 +39,7 @@ Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS \
 Content-Type: application/json \
 query params: \
     - name: string name of the group \
-Example : \
+Example : 
 ```json
         {
             "id": 1,
@@ -78,7 +78,7 @@ Example  : \
 ### GET /api/channel/<int:pk>/
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS \
 Content-Type: application/json \
-Example : \
+Example : 
 ```json
         {
             "id": 23,
@@ -98,7 +98,7 @@ Allow:  GET, POST, HEAD, OPTIONS \
 Content-Type: application/json \
 query params: \
     - group: int  id of the group \
-Example : \
+Example : 
 ```json
     [
     {
@@ -129,7 +129,7 @@ Example : \
 ### GET /api/channel/get_rating/<int:pk>/ 
 Allow: GET, HEAD, OPTIONS \
 Content-Type: application/json \
-Example : \
+Example : 
 ```json
     {
     "channel": "Series",
@@ -151,7 +151,7 @@ Example content of the CSV file: \
 ### GET /api/content_type/<int:pk>
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS \
 Content-Type: application/json \
-Example : \
+Example : 
 ```json
         {
             "id": 1,
@@ -164,7 +164,7 @@ Allow:  GET, POST, HEAD, OPTIONS \
 Content-Type: application/json \
 query params: \
     - name: string name of the content type \
-Example : \
+Example : 
 ```json
         [
             {
@@ -193,7 +193,7 @@ Allow:  GET, POST, HEAD, OPTIONS \
 Content-Type: application/json \
 query params: \
     - name: string name of the lenguage \
-Example : \
+Example : 
 ```json
         [
             {
@@ -212,7 +212,7 @@ Example : \
 ### GET /api/metadata/<int:pk>/
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS \
 Content-Type: application/json \
-Example : \
+Example : 
 ```json
         {
     "id": 1,
@@ -237,7 +237,7 @@ Allow:  GET, POST, HEAD, OPTIONS \
 Content-Type: application/json \
 query params: \
     - id: int id of the metadata \
-Example : \
+Example : 
 ```json
         [
             {
@@ -270,7 +270,7 @@ Example : \
 ### GET /api/content/<int:pk>/
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS \
 Content-Type: application/json \
-Example : \
+Example : 
 ```json
         {  
             "id": 1,
@@ -289,7 +289,7 @@ Content-Type: application/json \
 query params: \
     - id: int  id of the content \
     - parent_channel: int  id of the parent channel  of the content \
-Example : \
+Example : 
 ```json
         [
             {
