@@ -11,6 +11,7 @@
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS
 Content-Type: application/json
 Example Response: 
+```json
         {
             "id": 1,
             "name": "group1",
@@ -19,11 +20,12 @@ Example Response:
                 23
             ]
         }
-
+```
 ### GET /api/group/
 Allow:  GET, POST, HEAD, OPTIONS
 Content-Type: application/json
 Example Response :
+```json
         [
             {
                 "id": 1,
@@ -43,11 +45,12 @@ Example Response :
             }
         ]
 
-
+```
 ### GET /api/channel/<int:pk>/
 Allow:  GET, PUT, PATCH, DELETE, HEAD, OPTIONS
 Content-Type: application/json
 Example Response:
+```json
         {
             "id": 23,
             "title": "Movies",
@@ -60,11 +63,12 @@ Example Response:
                 2
             ]
         }
-
+```
 ### GET /api/channel/
 Allow:  GET, POST, HEAD, OPTIONS
 Content-Type: application/json
 Example Response:
+```json
     [
     {
         "id": 23,
@@ -90,17 +94,18 @@ Example Response:
         ]
     },
     ]
-
+```
 ### GET /api/channel/### GET_rating/<int:pk>/
 Allow: GET, HEAD, OPTIONS
 Content-Type: application/json
 
 Example Response:
+```json
     {
     "channel": "Series",
     "rating": 8.5
     }
-
+```
 
 ### GET /api/channel/export_ratings/
 Allow: GET, HEAD, OPTIONS
