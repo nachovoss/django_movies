@@ -1,14 +1,30 @@
 from rest_framework import serializers
-from .models import Channel, ContentType, Lenguage, Metadata, Content
+from .models import Channel, ContentType, Lenguage, Metadata, Content, Group
 from .service.channel_service import channel_service
 from .service.content_service import content_sevrice
 from rest_framework.response import Response
 
 
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ("id", "name", "channels")
+        extra_kwargs = {"channels": {"required": False}}
+
+
 class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Channel
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "picture_url",
+            "is_parent",
+            "parent_channel",
+            "date_created",
+            "groups",
+        ]
+        extra_kwargs = {"groups": {"required": False}}
 
     def validate(self, data: dict) -> dict:
         id: int = self.context.get("view").kwargs.get("pk")
