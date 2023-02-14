@@ -4,6 +4,33 @@
 
 ![alt text](UML.JPG "Title")
 
+## Installation
+create virtual enviroment and activate it \
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+install requirements \
+```bash
+pip install -r requirements.txt
+```
+run migrations \
+```bash
+python manage.py migrate
+```
+create superuser \
+```bash
+python manage.py createsuperuser
+```
+run server \
+```bash
+python manage.py runserver
+```
+## Testing
+run tests \
+```bash
+python manage.py test
+```
 
 ## Endpoints 
 
