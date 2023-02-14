@@ -48,9 +48,9 @@ class ChannelAll(generics.ListCreateAPIView):
 
     def get_queryset(self) -> QuerySet:
         queryset = Channel.objects.all()
-        title = self.request.query_params.get("title", None)
-        if title is not None:
-            queryset = queryset.filter(title__icontains=title)
+        groups = self.request.query_params.get("groups", None)
+        if groups is not None:
+            queryset = queryset.filter(groups__in=[groups])
 
         return queryset
 
