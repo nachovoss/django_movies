@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Channel, ContentType, Lenguage, Metadata, Content
+from .models import Channel, ContentType, Lenguage, Metadata, Content, Group
 from .service.channel_service import channel_service
 from .service.content_service import content_sevrice
 from .serializers import (
@@ -12,7 +12,24 @@ from .serializers import (
     LenguageSerializer,
     MetadataSerializer,
     ContentSerializer,
+    GroupSerializer,
 )
+
+
+class GroupAll(generics.ListCreateAPIView):
+    serializer_class = GroupSerializer
+
+    def get_queryset(self) -> QuerySet:
+        queryset = Group.objects.all()
+        name = self.request.query_params.get("name", None)
+        if name is not None:
+            queryset = queryset.filter(name__icontains=name)
+        return queryset
+
+
+class GroupCrud(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class ChannelCrud(generics.RetrieveUpdateDestroyAPIView):
