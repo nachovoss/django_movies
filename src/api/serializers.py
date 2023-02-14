@@ -11,9 +11,11 @@ class ChannelSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, data: dict) -> dict:
+        id: int = self.context.get("view").kwargs.get("pk")
+
         """Check if parent channel is parent and if channel is parent"""
         parent_validation = channel_service.parent_channel_validation(
-            data.get("is_parent"), data.get("parent_channel")
+            id, data.get("is_parent"), data.get("parent_channel")
         )
         if isinstance(parent_validation, Response):
             return parent_validation

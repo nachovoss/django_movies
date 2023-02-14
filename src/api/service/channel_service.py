@@ -13,7 +13,7 @@ class ChannelService:
         pass
 
     def parent_channel_validation(
-        self, is_parent: bool, parent_channel: Channel
+        self, id: int, is_parent: bool, parent_channel: Channel
     ) -> Channel:
         """Check if parent channel is parent and if channel is parent"""
 
@@ -26,6 +26,19 @@ class ChannelService:
                 raise serializers.ValidationError(
                     "selected  parent channel  can't be a aparent channel, this is not allowed"
                 )
+            if parent_channel.id == id:
+                raise serializers.ValidationError(
+                    "selected  parent channel  can't be the same as the channel, this is not allowed"
+                )
+        if not is_parent and parent_channel is None:
+            check_for_childs = Channel.objects.filter(
+                parent_channel=id
+            ).first()
+            if check_for_childs is not None:
+                raise serializers.ValidationError(
+                    "Channel has subchannels, can't set is_parent to False, this is not allowed"
+                )
+
         return parent_channel
 
     def get_rating(self, channel_id: int) -> dict:
