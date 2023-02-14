@@ -4,6 +4,16 @@ from datetime import datetime
 # Create your models here.
 
 
+class Group(models.Model):
+    """Groups model."""
+
+    id: int = models.AutoField(primary_key=True)
+    name: str = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Channel(models.Model):
     """Channel model."""
 
@@ -15,6 +25,7 @@ class Channel(models.Model):
         "self", on_delete=models.SET_NULL, null=True, blank=True
     )
     date_created: datetime = models.DateTimeField(auto_now_add=True)
+    groups: int = models.ManyToManyField(Group, related_name="channels")
 
     def __str__(self) -> str:
         return self.title

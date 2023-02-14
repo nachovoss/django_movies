@@ -12,10 +12,14 @@ from .views import (
     MetadataAll,
     ContentCrud,
     ContentAll,
+    GroupAll,
+    GroupCrud,
 )
 
 urlpatterns = [
     # path("channelpost/", post_channel),
+    path("group/<int:pk>", GroupCrud.as_view(), name="groups_crud"),
+    path("group/", GroupAll.as_view(), name="groups"),
     path(
         "channel/export_ratings/",
         ExportRaitings.as_view(),
