@@ -122,12 +122,12 @@ class ContentAll(generics.ListCreateAPIView):
         id_filter = self.request.query_params.get("id", None)
         if id_filter is not None:
             queryset = queryset.filter(id__icontains=id_filter)
-        content_type_id_filter = self.request.query_params.get(
-            "content_type", None
+        parent_channel_filter = self.request.query_params.get(
+            "parent_channel", None
         )
-        if content_type_id_filter is not None:
+        if parent_channel_filter is not None:
             queryset = queryset.filter(
-                contennt_type_id__icontains=content_type_id_filter
+                parent_channel__id=int(parent_channel_filter)
             )
 
         return queryset
