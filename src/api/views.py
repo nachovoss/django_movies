@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Channel, ContentType, Lenguage, Metadata, Content
 from .service.channel_service import channel_service
+from .service.content_service import content_sevrice
 from .serializers import (
     ChannelSerializer,
     ContentTypeSerializer,
@@ -17,6 +18,12 @@ from .serializers import (
 class ChannelCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
+
+    def delete(self, request, *args, **kwargs):
+        content = self.get_object()
+        channel_service.delete_parent_channel_if_no_subchannels(content)
+
+        return super().delete(request, *args, **kwargs)
 
 
 class ChannelAll(generics.ListCreateAPIView):
@@ -82,6 +89,12 @@ class MetadataAll(generics.ListCreateAPIView):
 class ContentCrud(generics.RetrieveUpdateDestroyAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
+
+    def delete(self, request, *args, **kwargs):
+        content = self.get_object()
+        content_sevrice.delete_channel_if_no_contents(content)
+
+        return super().delete(request, *args, **kwargs)
 
 
 class ContentAll(generics.ListCreateAPIView):

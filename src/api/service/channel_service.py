@@ -109,5 +109,15 @@ class ChannelService:
 
         return response
 
+    def delete_parent_channel_if_no_subchannels(self, channel: Channel):
+        """Delete parent channel if it has no subchannels"""
+        if channel.is_parent:
+            return
+        subchannels = Channel.objects.filter(
+            parent_channel=channel.parent_channel
+        ).exclude(id=channel.id)
+        if subchannels.count() == 0:
+            channel.parent_channel.delete()
+
 
 channel_service = ChannelService()
