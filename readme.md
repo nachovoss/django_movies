@@ -10,9 +10,22 @@ create virtual enviroment and activate it \
 python3 -m venv env
 source env/bin/activate
 ```
+for Windows 
+```bash
+cd env/Scripts/
+Activate
+```
+go in to src dir
+```bash
+cd src
+```
 install requirements \
 ```bash
 pip install -r requirements.txt
+```
+create migrations
+```bash
+python manage.py makemigrations
 ```
 run migrations \
 ```bash
