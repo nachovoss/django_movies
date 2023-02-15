@@ -230,13 +230,7 @@ Example :
 ```json
         {
     "id": 1,
-    "extra_data": "{    
-                    'grandma_of_the_author': 'Pamela Hirst',
-                    'seasons': 6,
-                    'episodes': 89,
-                    'year': 2013,
-                    ...
-                    }",
+    "extra_data": "'grandma_of_the_author': 'Paquita', ... ",
     "authors": "Michael Hirst",
     "description": "Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore--and raid--the distant shores across the ocean. The series broadly follows the exploits of the legendary Viking chieftain Ragnar Lothbrok and his crew, and later those of his sons.",
     "genere": "Action, Historic",
@@ -256,13 +250,7 @@ Example :
         [
             {
                 "id": 1,
-                "extra_data": "{    
-                    'grandma_of_the_author': 'Pamela Hirst',
-                    'seasons': 6,
-                    'episodes': 89,
-                    'year': 2013,
-                    ...
-                    }",
+                "extra_data": "'grandma_of_the_author': 'Paquita', ...",
                 "authors": "Michael Hirst",
                 "description": "Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore--and raid--the distant shores across the ocean. The series broadly follows the exploits of the legendary Viking chieftain Ragnar Lothbrok and his crew, and later those of his sons.",
                 "genere": "Action, Historic",
