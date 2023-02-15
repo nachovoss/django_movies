@@ -41,4 +41,4 @@ class ContentService:
             content_channel.delete()
 
 
-content_sevrice = ContentService()
+content_service = ContentService()

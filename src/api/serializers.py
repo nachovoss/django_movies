@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Channel, ContentType, Lenguage, Metadata, Content, Group
 from .service.channel_service import channel_service
-from .service.content_service import content_sevrice
+from .service.content_service import content_service
 from rest_framework.response import Response
 
 
@@ -64,7 +64,7 @@ class ContentSerializer(serializers.ModelSerializer):
     def validate(self, data: dict) -> dict:
         """Check if channel exists"""
 
-        channel_validation = content_sevrice.content_channel_validation(
+        channel_validation = content_service.content_channel_validation(
             data.get("parent_channel").id
         )
         if isinstance(channel_validation, Response):
@@ -73,7 +73,7 @@ class ContentSerializer(serializers.ModelSerializer):
 
     def validate_rating(self, rating: int) -> int:
         """Check if rating is between 0 and 10"""
-        rating_validation = content_sevrice.rating_validation(rating)
+        rating_validation = content_service.rating_validation(rating)
         if isinstance(rating_validation, Response):
             return rating_validation
         return rating

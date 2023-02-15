@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Channel, ContentType, Lenguage, Metadata, Content, Group
 from .service.channel_service import channel_service
-from .service.content_service import content_sevrice
+from .service.content_service import content_service
 from .serializers import (
     ChannelSerializer,
     ContentTypeSerializer,
@@ -109,7 +109,7 @@ class ContentCrud(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         content = self.get_object()
-        content_sevrice.delete_channel_if_no_contents(content)
+        content_service.delete_channel_if_no_contents(content)
 
         return super().delete(request, *args, **kwargs)
 
